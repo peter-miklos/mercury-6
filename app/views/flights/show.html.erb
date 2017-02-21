@@ -12,6 +12,6 @@
     </div>
   </div>
   <% if (current_user && current_user.id == @flight.user_id)%>
-    <%= link_to "Edit #{@flight.name}", edit_flight_path(@flight) %>
+    
   <% end %>
 </div>
