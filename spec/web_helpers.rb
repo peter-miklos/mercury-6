@@ -6,3 +6,11 @@ def sign_up(email: "test@example.com", password: "123456", password_confirmation
   fill_in('user_password_confirmation', with: password_confirmation)
   click_button('Sign up')
 end
+
+def sign_in(email: "test1@example.com", password: "123456")
+  visit('/')
+  click_link('Log in')
+  fill_in('user_email', with: email)
+  fill_in('user_password', with: password)
+  click_button('Log in')
+end
