@@ -2,6 +2,19 @@
   <h2>Flights</h2>
 
   <% if @flights.any? %>
+
+  <% @flights.each.with_index do |flight, index| %>
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <b><%= link_to "Flight number: #{flight.number}", flight_path(flight)%></b>
+      </div>
+      <div class="panel-body">
+        <p>Capacity: <%= flight.capacity %></p>
+        Date: <%= flight.date %>
+      </div>
+    </div>
+  <% end %>
+
   <% else %>
     No flights available
   <% end %>
