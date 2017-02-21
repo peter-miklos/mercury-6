@@ -4,11 +4,11 @@ feature 'flights' do
 
   let!(:user1){ User.create(email: "test1@example.com", password: 123456)}
   let!(:user2){ User.create(email: "test2@example.com", password: 123456)}
-  let!(:adming){ User.create(email: "admin@example.com", password: 123456, admin: true)}
+  let!(:admin){ User.create(email: "admin@example.com", password: 123456, admin: true)}
   let!(:flight1){ Flight.create(number: "AA1234", capacity: 160, aircraft: "A320",
-                  date: Time.new(2017, 11, 11, 12, 00), origin: "LHR", destination: "BUD")}
+                  date: Time.new(2017, 11, 11, 12, 00), origin: "LHR", destination: "BUD", user: admin)}
   let!(:flight2){ Flight.create(number: "AA2345", capacity: 240, aircraft: "A330",
-                  date: Time.new(2017, 12, 12, 17, 40), origin: "LHR", destination: "JFK")}
+                  date: Time.new(2017, 12, 12, 17, 40), origin: "LHR", destination: "JFK", user: admin)}
 
   context 'user logged out - ' do
 
@@ -24,11 +24,18 @@ feature 'flights' do
 
       end
 
-      xit 'does not add new flight if the logged in user is not an admin' do
+      it 'does not add new flight if the logged in user is not an admin' do
         sign_in
         visit '/flights/new'
+        fill_in("flight_number", with: "AA5432")
+        fill_in("flight_date", with: "2017-12-31")
+        fill_in("flight_origin", with: "BSL")
+        fill_in("flight_destination", with: "JFK")
+        fill_in("flight_aircraft", with: "A350")
+        fill_in("flight_capacity", with: 300)
+        click_button("Create Flight")
 
-        expect(page).to have_content "You need to sign in or sign up before continuing."
+        expect(page).to have_css("div#alert", text: "You have no permission to add a new flight")
 
       end
     end
