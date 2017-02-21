@@ -1,0 +1,17 @@
+<div class="container">
+  <h2>Flight details</h2>
+  <div class="panel panel-info">
+    <div class="panel-heading" id="flight_header_<%=@flight.number%>">
+      <b>Flight number: <%= @flight.number %></b> - <%= @flight.date %>
+    </div>
+    <div class="panel-body" id="flight_content_<%= @flight.number%>">
+      <p>Origin: <%= @flight.origin %></p>
+      <p>Destination: <%= @flight.destination %></p>
+      <p>Aircraft: <%= @flight.aircraft %></p>
+      <p>Capacity: <%= @flight.capacity %></p>
+    </div>
+  </div>
+  <% if (current_user && current_user.id == @flight.user_id)%>
+    <%= link_to "Edit #{@flight.name}", edit_flight_path(@flight) %>
+  <% end %>
+</div>

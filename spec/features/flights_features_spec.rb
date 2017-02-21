@@ -51,7 +51,13 @@ feature 'flights' do
     end
 
     context 'Show flight details - ' do
+      it "shows the details of a particular flight" do
+        visit '/flights'
+        click_link 'AA1234'
 
+        expect(page).to have_css("div#flight_header_AA1234", text: "Flight number: AA1234 - 2017-11-11")
+        expect(page).to have_css("div#flight_content_AA1234", text: "Origin: LHR Destination: BUD Aircraft: A320 Capacity: 160")
+      end
     end
   end
 
