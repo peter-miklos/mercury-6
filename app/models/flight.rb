@@ -5,4 +5,6 @@ class Flight < ApplicationRecord
   validates :origin, presence: true
   validates :destination, presence: true
   validates :aircraft, presence: true
+
+  belongs_to :user
 end
